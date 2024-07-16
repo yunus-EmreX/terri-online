@@ -65,7 +65,7 @@
             bitOffset += 10;
             const clanCount = 0;
 
-            games.push({
+                console.log({
                 id,
                 gamemode,
                 isContest,
@@ -79,13 +79,13 @@
         }
 
         // Parse additional fields: playerId, mwCode, elo
-        const playerId = readBits(array, bitOffset, 5);  // Assuming playerId is 5 bits
+        const playerId = readBits(array, bitOffset, 5); 
         bitOffset += 5;
 
-        const mwCode = readBits(array, bitOffset, 12);  // Assuming mwCode is 12 bits
+        const mwCode = readBits(array, bitOffset, 12);  
         bitOffset += 12;
 
-        const elo = readBits(array, bitOffset, 9);  // Assuming elo is 9 bits
+        const elo = readBits(array, bitOffset, 9);  
         bitOffset += 9;
 
         return {
