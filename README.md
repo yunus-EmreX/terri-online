@@ -1,5 +1,5 @@
-Finds and logs to the console
-     [                
+Finds and logs to the console;
+                
                 player id,
                 gamemode id,
                 isContest,
@@ -11,4 +11,4 @@ Finds and logs to the console
                 clanCount
 
 
-                               ]
+                               
