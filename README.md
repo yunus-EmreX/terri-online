@@ -15,6 +15,6 @@ Finds and logs to the console;
 
                                
 
-
 ![Example Image](https://raw.githubusercontent.com/yunus-EmreX/terri-online/main/example.png)
-![Example2 Image] (https://raw.githubusercontent.com/yunus-EmreX/terri-online/main/elo.png)
+![Example2 Image](https://raw.githubusercontent.com/yunus-EmreX/terri-online/main/elo.png)
+
