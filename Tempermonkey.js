@@ -11,6 +11,8 @@
 
 (function() {
     const OriginalWebSocket = window.WebSocket;
+    const logBuffer = [];
+    let lastLogTime = 0;
 
     window.WebSocket = function(url, protocols) {
         const ws = new OriginalWebSocket(url, protocols);
@@ -19,8 +21,7 @@
             if (event.data instanceof ArrayBuffer) {
                 const arrayBuffer = event.data;
                 const array = new Uint8Array(arrayBuffer);
-                console.log('Received ArrayBuffer:', array);
-                logLobbyGameInfo(array);
+                logBuffer.push(parseArrayBuffer(array));
             }
         });
 
@@ -38,12 +39,12 @@
         return value;
     }
 
-    function logLobbyGameInfo(array) {
+    function parseArrayBuffer(array) {
         let bitOffset = 0;
         const gamesCount = readBits(array, bitOffset, 5);
         bitOffset += 5;
-        console.log(`Games Count: ${gamesCount}`);
 
+        const games = [];
         for (let i = 0; i < gamesCount; i++) {
             const id = readBits(array, bitOffset, 5);
             bitOffset += 5;
@@ -55,7 +56,7 @@
             bitOffset += 6;
             const mapSeed = readBits(array, bitOffset, 14);
             bitOffset += 14;
-            const playerBitCount = 9; // Adjust according to your protocol
+            const playerBitCount = 9;
             const joinCount = readBits(array, bitOffset, playerBitCount);
             bitOffset += playerBitCount;
             const maxPlayers = readBits(array, bitOffset, 9) + 1;
@@ -64,7 +65,7 @@
             bitOffset += 10;
             const clanCount = 0;
 
-            console.log({
+            games.push({
                 id,
                 gamemode,
                 isContest,
@@ -76,5 +77,33 @@
                 clanCount
             });
         }
+
+        // Parse additional fields: playerId, mwCode, elo
+        const playerId = readBits(array, bitOffset, 5);  // Assuming playerId is 5 bits
+        bitOffset += 5;
+
+        const mwCode = readBits(array, bitOffset, 12);  // Assuming mwCode is 12 bits
+        bitOffset += 12;
+
+        const elo = readBits(array, bitOffset, 9);  // Assuming elo is 9 bits
+        bitOffset += 9;
+
+        return {
+            games,
+            playerId,
+            mwCode,
+            elo
+        };
     }
+
+    function logBufferedData() {
+        const currentTime = Date.now();
+        if (currentTime - lastLogTime >= 5000 && logBuffer.length > 0) {
+            console.log('Buffered Data:', logBuffer);
+            logBuffer.length = 0; // Clear the buffer
+            lastLogTime = currentTime;
+        }
+    }
+
+    setInterval(logBufferedData, 1000);
 })();
