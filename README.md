@@ -7,6 +7,8 @@ Finds and logs to the console;
                 mapSeed,
                 joinCount,
                 maxPlayers,
+                elo,
+                mwcode,
                 timeLeft,
                 clanCount
 
