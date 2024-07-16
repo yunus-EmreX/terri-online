@@ -2,7 +2,7 @@
 // @name         readbitter
 // @namespace    http://tampermonkey.net/
 // @version      2024-07-16
-// @description  try to take over the world!
+// @description  pooper ass
 // @author       ShellBee
 // @match        https://*/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
