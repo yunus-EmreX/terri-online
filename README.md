@@ -12,3 +12,6 @@ Finds and logs to the console;
 
 
                                
+
+
+![Example Image](https://raw.githubusercontent.com/yunus-EmreX/terri-online/main/example.png)
